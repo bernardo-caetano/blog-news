@@ -1,3 +1,4 @@
+import { Header } from '@/components/Header'
 import './globals.css'
 import { Roboto } from 'next/font/google'
 
@@ -19,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={roboto.className}>{children}</body>
+      <body className={`${roboto.className} bg-gray-800 text-white`}>
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }
