@@ -4,11 +4,9 @@ export function Header() {
   return (
     <div className="w-full bg-gray-500 flex justify-center items-center py-16 border-b-2 border-green-400 sticky top-0">
       <div className="w-11/12 flex justify-between items-center">
-        <Link href="/">
+        <Link href="/" className="flex gap-8 ">
           <span className="text-4xl text-green-400">LOGO</span>
-        </Link>
 
-        <Link href="/">
           <h1 className="text-3xl">PRESSTART</h1>
         </Link>
         <nav className="flex gap-8">

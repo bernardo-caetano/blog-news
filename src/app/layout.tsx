@@ -1,7 +1,6 @@
 import { Header } from '@/components/Header'
 import './globals.css'
 import { Roboto } from 'next/font/google'
-import { DefaultLayout } from '@/components/Layouts/DefaultLayout'
 
 const roboto = Roboto({
   weight: '400',
@@ -21,9 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={`${roboto.className} bg-gray-800 text-white`}>
+      <body
+        className={`${roboto.className} bg-gray-800 text-white flex flex-col jus items-center`}
+      >
         <Header />
-        <DefaultLayout>{children}</DefaultLayout>
+        {children}
       </body>
     </html>
   )
