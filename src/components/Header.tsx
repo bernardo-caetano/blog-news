@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function Header() {
   return (
-    <div className="w-full bg-gray-500 flex justify-center items-center py-16 border-b-2 border-green-400 sticky top-0">
+    <div className="w-full bg-gray-500 flex justify-center items-center py-16 border-b-2 border-green-400 fixed top-0  ">
       <div className="w-11/12 flex justify-between items-center">
         <Link href="/" className="flex gap-8 ">
           <span className="text-4xl text-green-400">LOGO</span>
