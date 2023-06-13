@@ -32,3 +32,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Slice Machine - Prismic CMS
+
+ YOUR REPOSITORY
+    Dashboard            https://blog-news-games.prismic.io
+    API                  https://blog-news-games.cdn.prismic.io/api/v2        
+
+  RESOURCES
+    Documentation        https://prismic.dev/init/next-11-13
+    Getting help         https://community.prismic.io
+
+  GETTING STARTED
+    Run Slice Machine    npm run slicemachine
+    Run your project     npm run dev
