@@ -1,13 +1,39 @@
+import { createClient } from '@/../prismicio'
 import Image from 'next/image'
 
-export default async function News() {
+export default async function News({ params }: any) {
+  const client = createClient()
+  console.log(params)
+  // const page = await client.getAllByType('news')
+  // const headers = {
+  //   Authorization:
+  //     'MC5aSW1YREJVQUFDd0EtUEFn.Ee-_ve-_vW0K77-977-9Fwvvv71-eQ7vv70K77-9cu-_vUZGJDvvv70EUu-_vSM877-977-9Ze-_vQ',
+  // }
+  // const response = await fetch(
+  //   'https://blog-news-games.cdn.prismic.io/api/v2',
+  //   { headers },
+  // )
+  // const data = await response.json()
+  // console.log(data.refs[0].ref)
+
+  // const headers2 = {
+  //   Authorization: data.refs[0].ref,
+  // }
+  const response2 = await fetch(
+    'https://blog-news-games.cdn.prismic.io/api/v2/documents/search?ref=ZImu8xUAACkA-Wc_',
+  )
+  const data2 = await response2.json()
+  console.log(data2)
+
   return (
     <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74">
       <section className="flex flex-col justify-center items-center gap-32">
         <div className="flex flex-col items-start justify-center gap-8">
           <h1 className="text-[56px] font-bold text-green-400">
-            CBLOL 2023: Lava elogia Trick e diz que Ranger pode ser bom suporte
+            {/* CBLOL 2023: Lava elogia Trick e diz que Ranger pode ser bom suporte */}
+            {/* {console.log(page)} */}
           </h1>
+          {/* <pre>{JSON.stringify(data2, null, 2)}</pre> */}
           <h2 className="text-[20px]">
             Meio da LOS disse que elenco do 2º Split é melhor do que o da edição
             passada

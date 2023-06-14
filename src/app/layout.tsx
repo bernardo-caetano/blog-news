@@ -2,6 +2,8 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import './globals.css'
 import { Roboto } from 'next/font/google'
+import { PrismicPreview } from '@prismicio/next'
+import { repositoryName } from '@/../prismicio'
 
 const roboto = Roboto({
   weight: '400',
@@ -27,6 +29,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
   )

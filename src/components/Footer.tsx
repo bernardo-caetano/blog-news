@@ -10,7 +10,7 @@ export function Footer() {
         <div>ícones redes sociais</div>
       </div>
       <span className="text-[12px]">
-        © Copyright 2000-2023 Presstart Comunicação e Participações LTDA
+        © Copyright 2023-2023 Presstart Comunicação e Participações LTDA
       </span>
     </div>
   )
