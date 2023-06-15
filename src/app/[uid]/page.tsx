@@ -1,4 +1,5 @@
 import { createClient } from '@/../prismicio'
+import { getNewsData, getRef } from '@/services/prismic'
 import Image from 'next/image'
 
 export default async function News({ params }: any) {
@@ -19,11 +20,9 @@ export default async function News({ params }: any) {
   // const headers2 = {
   //   Authorization: data.refs[0].ref,
   // }
-  const response2 = await fetch(
-    'https://blog-news-games.cdn.prismic.io/api/v2/documents/search?ref=ZImu8xUAACkA-Wc_',
-  )
-  const data2 = await response2.json()
-  console.log(data2)
+
+  // const data2 = await response2.json()
+  getNewsData()
 
   return (
     <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74">
