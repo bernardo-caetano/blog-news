@@ -4,7 +4,12 @@ import Image from 'next/image'
 
 export default async function News({ params }: any) {
   const client = createClient()
-  console.log(params)
+
+  const news = await client.getByUID('news', params.uid)
+  const data = news.data
+
+  console.log(news.data.slices[0]?.primary)
+
   // const page = await client.getAllByType('news')
   // const headers = {
   //   Authorization:
@@ -22,24 +27,26 @@ export default async function News({ params }: any) {
   // }
 
   // const data2 = await response2.json()
-  getNewsData()
+  // getNewsData()
 
   return (
     <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74">
       <section className="flex flex-col justify-center items-center gap-32">
         <div className="flex flex-col items-start justify-center gap-8">
           <h1 className="text-[56px] font-bold text-green-400">
-            {/* CBLOL 2023: Lava elogia Trick e diz que Ranger pode ser bom suporte */}
-            {/* {console.log(page)} */}
+            {news.data.slices[0]?.primary.title[0].text}
           </h1>
-          {/* <pre>{JSON.stringify(data2, null, 2)}</pre> */}
+
           <h2 className="text-[20px]">
-            Meio da LOS disse que elenco do 2º Split é melhor do que o da edição
-            passada
+            {news.data.slices[0]?.primary.subtitle}
           </h2>
         </div>
         <Image
-          src="https://picsum.photos/1230/600"
+          src={
+            news.data.slices[0]?.primary
+              ? news.data.slices[0]?.primary.main_image.url
+              : 'https://picsum.photos/1230/600'
+          }
           alt="algo"
           width={1230}
           height={600}
@@ -47,6 +54,7 @@ export default async function News({ params }: any) {
       </section>
       <section className="text-[20px] flex flex-col gap-18 mt-32">
         <p>
+          {/* <pre>{JSON.stringify(news, null, 2)}</pre> */}
           Gabriel FalleN sempre se destacou no Counter-Strike: Global Offensive
           (CS:GO) pelos títulos, pelas performances e pela liderança, mas,
           recentemente, outra habilidade vem chamando atenção. O capitão da
