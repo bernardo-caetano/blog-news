@@ -8,7 +8,7 @@ export default async function News({ params }: any) {
   const news = await client.getByUID('news', params.uid)
   const data = news.data
 
-  console.log(news.data.slices[0]?.primary)
+  // console.log(news.data.slices[0]?.primary)
 
   // const page = await client.getAllByType('news')
   // const headers = {

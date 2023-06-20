@@ -1,26 +1,60 @@
 import { mainNewsMock } from '@/assets/mock/mainNews'
-import { Billboard } from '../components/Ads/Billboard'
+// import { Billboard } from '../components/Ads/Billboard'
 import { MainNews } from '../components/MainNews'
 import NewsCard from '@/components/NewsCard'
 import { createClient } from '../../prismicio'
 
+interface MainNewsType {
+  uid: string
+  url: string
+  title: string
+  subtitle: string
+  img: {
+    src: string
+    alt: string
+    dimensions: {
+      width: number
+      height: number
+    }
+  }
+}
+export const revalidate = 60 * 60 * 60 // revalidate this page every 1 hour
+
 export default async function Home({ params }: any) {
   const client = createClient()
 
-  // const page = await client.getByUID('homepage', params.uid)
+  const newsData = await client.getAllByType('news')
 
-  console.log(params)
+  const newsList = newsData.reduce<MainNewsType[]>((acc, news) => {
+    acc.push({
+      uid: news.uid,
+      url: news.url,
+      title: news.data.slices[0]?.primary.title[0].text,
+      subtitle: news.data.slices[0]?.primary.subtitle,
+      img: {
+        src: news.data.slices[0]?.primary.main_image.url,
+        alt: news.data.slices[0]?.primary.main_image.alt,
+        dimensions: news.data.slices[0]?.primary.main_image.dimensions,
+      },
+    })
+    return acc
+  }, [] as MainNewsType[])
+
+  const mainNewsData = newsList.slice(0, 3)
+
+  const moreNewsData = newsList.slice(3, newsList.length)
+
   return (
-    <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74">
-      <div
+    <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74 pt-32">
+      {/* <div
         className="flex w-full h-full items-center justify-center my-32
       md-desk:w-730"
       >
         <Billboard />
-      </div>
-      <MainNews mainNewsData={mainNewsMock} />
-      <section className="w-full h-full flex flex-col justify-center items-center gap-32 mt-32">
-        {mainNewsMock.map((newsData, index) => {
+      </div> */}
+      <MainNews mainNewsData={mainNewsData} />
+      <section className="w-full h-full flex flex-col justify-center items-start gap-32 mt-32">
+        {moreNewsData.map((newsData, index) => {
           return <NewsCard key={index} dataNewsCard={newsData} />
         })}
       </section>
