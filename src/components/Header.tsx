@@ -1,10 +1,14 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import logo from '@/assets/images/logo/logo.png'
 import { SocialIcons } from './SocialIcons'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export function Header() {
+  const { data: session } = useSession()
+  console.log(session)
   return (
     <div className="w-full bg-gray-500 flex justify-center items-center py-16 border-b-2 border-green-400 fixed top-0  ">
       <div className="w-11/12 flex justify-between items-center">
@@ -33,6 +37,10 @@ export function Header() {
             Reviews
           </Link>
         </nav> */}
+        <button type="button" onClick={() => signIn('google')}>
+          Login GitHub
+        </button>
+        {session ? <p>Logado</p> : <p>Não Logado</p>}
         <SocialIcons />
       </div>
     </div>
