@@ -39,7 +39,7 @@ export function MainNews({ mainNewsData }: MainNewsDataProps) {
               backgroundPosition: 'center top',
               backgroundSize: 'cover',
             }}
-            className="flex bg-gray-200 w-full h-322 justify-start items-end text-4xl font-bold pb-82 px-32"
+            className="flex bg-gray-200 w-full h-322 justify-start items-end text-4xl font-bold pb-48 px-32"
           >
             {mainNewsData[1]?.title}
           </div>
@@ -51,7 +51,7 @@ export function MainNews({ mainNewsData }: MainNewsDataProps) {
               backgroundPosition: 'center top',
               backgroundSize: 'cover',
             }}
-            className=" flex bg-gray-200 w-full h-322 justify-start items-end text-4xl font-bold pb-82 px-32"
+            className=" flex bg-gray-200 w-full h-322 justify-start items-end text-4xl font-bold pb-48 px-32"
           >
             {mainNewsData[2]?.title}
           </div>

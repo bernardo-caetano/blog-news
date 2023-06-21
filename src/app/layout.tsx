@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${roboto.className} bg-gray-800 text-white flex flex-col jus items-center`}
+        className={`${roboto.className} bg-gray-800 text-white flex flex-col items-center`}
       >
         <Header />
         {children}
