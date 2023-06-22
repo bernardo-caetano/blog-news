@@ -18,7 +18,7 @@ interface MainNewsDataProps {
 }
 export function MainNews({ mainNewsData }: MainNewsDataProps) {
   return (
-    <section className="flex justify-center items-center gap-16 w-full h-full max-h-660 min-h-660">
+    <section className="flex justify-center items-center gap-16 w-full h-full max-h-[660px] min-h-[660px]">
       <Link href={`${mainNewsData[0].url}`} className="w-full h-full">
         <div
           style={{
@@ -26,7 +26,7 @@ export function MainNews({ mainNewsData }: MainNewsDataProps) {
             backgroundPosition: 'center top',
             backgroundSize: 'cover',
           }}
-          className="flex bg-gray-200 w-full  justify-start items-end min-w-606 h-660 text-4xl font-bold px-32 pb-104"
+          className="flex bg-gray-200 w-full  justify-start items-end min-w-[606px] h-[660px] text-4xl font-bold px-32 pb-104"
         >
           {mainNewsData[0]?.title}
         </div>
@@ -39,7 +39,7 @@ export function MainNews({ mainNewsData }: MainNewsDataProps) {
               backgroundPosition: 'center top',
               backgroundSize: 'cover',
             }}
-            className="flex bg-gray-200 w-full h-322 justify-start items-end text-4xl font-bold pb-48 px-32"
+            className="flex bg-gray-200 w-full h-[322px] justify-start items-end text-4xl font-bold pb-48 px-32"
           >
             {mainNewsData[1]?.title}
           </div>
@@ -51,7 +51,7 @@ export function MainNews({ mainNewsData }: MainNewsDataProps) {
               backgroundPosition: 'center top',
               backgroundSize: 'cover',
             }}
-            className=" flex bg-gray-200 w-full h-322 justify-start items-end text-4xl font-bold pb-48 px-32"
+            className=" flex bg-gray-200 w-full h-[322px] justify-start items-end text-4xl font-bold pb-48 px-32"
           >
             {mainNewsData[2]?.title}
           </div>

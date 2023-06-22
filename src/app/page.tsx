@@ -48,7 +48,7 @@ export default async function Home({ params }: any) {
   const moreNewsData = newsList.slice(3, newsList.length)
 
   return (
-    <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74 pt-32">
+    <main className="flex items-center justify-center flex-col max-w-[1230px] mt-32 pt-32">
       {/* <div
         className="flex w-full h-full items-center justify-center my-32
       md-desk:w-730"

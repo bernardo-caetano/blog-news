@@ -9,10 +9,10 @@ export default async function News({ params }: any) {
   const news = newsMock
 
   return (
-    <main className="flex items-center justify-center flex-col max-w-[1230px] mt-74">
+    <main className="flex items-center justify-center flex-col max-w-[1230px] mt-32">
       <section className="flex flex-col justify-center items-center gap-32">
         <div className="flex flex-col items-start justify-center gap-8">
-          <h1 className="text-[56px] font-bold text-green-400">{news.title}</h1>
+          <h1 className="text-[56px] font-bold text-green-500">{news.title}</h1>
 
           <h2 className="text-[20px]">{news.subtitle}</h2>
         </div>

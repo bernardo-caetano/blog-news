@@ -32,7 +32,7 @@ export default function NewsCard({ dataNewsCard }: NewsCardProps) {
           height={190}
         />
         <div className="w-full h-full flex flex-col gap-8 justify-start items-start">
-          <p className="text-[24px] text-green-400 font-bold">
+          <p className="text-[24px] text-green-500 font-bold">
             {dataNewsCard.title}
           </p>
           <p className="text-[16px] text-white font-normal">

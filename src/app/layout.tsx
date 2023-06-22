@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${roboto.className} bg-gray-800 text-white flex flex-col items-center`}
+        className={`${roboto.className} bg-gray-900 text-white flex flex-col items-center`}
       >
         <NextAuthProvider>
           <Header />
