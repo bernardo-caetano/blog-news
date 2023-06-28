@@ -1,6 +1,7 @@
 'use client'
 import { ArrowRight, Note } from '@phosphor-icons/react'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export function LoginButton() {
@@ -8,7 +9,26 @@ export function LoginButton() {
   return (
     <div className="flex items-center justify-center gap-12">
       {session?.expires !== undefined ? (
-        <span> Logado </span>
+        <>
+          <span className="flex px-8 py-8 rounded-full gap-8 bg-gray-600 items-center justify-center">
+            <Image
+              className="rounded-full"
+              src={session?.user?.image!}
+              alt="foto do usuário"
+              width={40}
+              height={40}
+            />
+            <p>{session?.user?.name}</p>
+          </span>
+          <button
+            type="button"
+            onClick={() => signOut()}
+            className="p-12 bg-gray-600 border-2 border-gray-800 rounded-lg flex gap-8 items-center justify-center transition
+              hover:border-green-500"
+          >
+            Sair <ArrowRight />
+          </button>
+        </>
       ) : (
         <>
           <Link

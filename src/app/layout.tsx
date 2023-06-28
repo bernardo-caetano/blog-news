@@ -5,6 +5,7 @@ import { Roboto } from 'next/font/google'
 import { PrismicPreview } from '@prismicio/next'
 import { repositoryName } from '@/../prismicio'
 import NextAuthProvider from '@/Providers/NextAuthProvider'
+import { LoadingProvider } from '@/context/LoadingContext'
 
 const roboto = Roboto({
   weight: '400',
@@ -28,10 +29,12 @@ export default function RootLayout({
         className={`${roboto.className} h-full w-full bg-gray-900 text-white flex flex-col items-center`}
       >
         <NextAuthProvider>
-          <Header />
-          {children}
-          <Footer />
-          <PrismicPreview repositoryName={repositoryName} />
+          <LoadingProvider>
+            <Header />
+            {children}
+            <Footer />
+            <PrismicPreview repositoryName={repositoryName} />
+          </LoadingProvider>
         </NextAuthProvider>
       </body>
     </html>

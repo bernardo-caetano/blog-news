@@ -7,7 +7,7 @@ import { LoginButton } from './Buttons/LoginButton'
 export function Header() {
   return (
     <>
-      <header className="w-full bg-gray-800 flex justify-center items-center py-16 border-b-2 border-green-600 fixed top-0  ">
+      <header className="w-full min-h-[90px] bg-gray-800 flex justify-center items-center py-16 border-b-2 border-green-600 fixed top-0  ">
         <div className="w-11/12 flex justify-between items-center">
           <Link href="/" className="flex gap-8 ">
             <Image src={logo} alt="logo" width={40} height={40} />
@@ -16,7 +16,7 @@ export function Header() {
           <LoginButton />
         </div>
       </header>
-      <div className="w-full min-h-[82px]"></div>
+      <div className="w-full min-h-[90px]"></div>
     </>
   )
 }

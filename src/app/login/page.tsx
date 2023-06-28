@@ -1,10 +1,16 @@
-import { GitHubAuth } from '@/components/Buttons/GitHubAuth'
+import { AuthButton } from '@/components/Buttons/AuthButton'
+import { Loader } from '@/components/Loader'
 
 export default function Login() {
   return (
-    <main className=" flex-1">
-      <div>
-        <GitHubAuth />
+    <main className=" flex-1 flex justify-center items-center">
+      <Loader />
+      <div className="w-[400px] h-[280px] bg-gray-800 rounded-xl flex items-center justify-center gap-16 flex-col">
+        <p className="text-xl font-bold m-16">Login</p>
+        <div className="w-full h-full flex items-center justify-center gap-32 flex-col">
+          <AuthButton auth="github" />
+          <AuthButton auth="google" />
+        </div>
       </div>
     </main>
   )
