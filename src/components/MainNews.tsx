@@ -19,7 +19,10 @@ interface MainNewsDataProps {
 export function MainNews({ mainNewsData }: MainNewsDataProps) {
   return (
     <section className="flex justify-center items-center gap-16 w-full h-full max-h-[660px] min-h-[660px]">
-      <Link href={`${mainNewsData[0].url}`} className="w-full h-full">
+      <Link
+        href={`${mainNewsData[0].url}`}
+        className="w-full h-full overflow-hidden"
+      >
         <div
           style={{
             background: `linear-gradient(180deg, rgba(24, 24, 24, 0) 0%, #181818 100%) , url(${mainNewsData[0]?.img.src})`,

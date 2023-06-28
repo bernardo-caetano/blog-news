@@ -23,9 +23,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" className="h-full w-full">
       <body
-        className={`${roboto.className} bg-gray-900 text-white flex flex-col items-center`}
+        className={`${roboto.className} h-full w-full bg-gray-900 text-white flex flex-col items-center`}
       >
         <NextAuthProvider>
           <Header />
