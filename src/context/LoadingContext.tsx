@@ -1,13 +1,19 @@
+/* eslint-disable prettier/prettier */
 'use client'
 import Router from 'next/router'
 import { createContext, useState, ReactNode } from 'react'
 import { Loader } from '@/components/Loader'
 
-export const LoadingContext = createContext(null)
+export const LoadingContext = createContext({ loading: false })
 
 interface LoadingProviderProps {
 	children: ReactNode
 }
+
+// interface LoadingState {
+// 	loading: boolean
+// 	setLoading: () => void
+// }
 
 export function LoadingProvider({ children }: LoadingProviderProps) {
 	const [loading, setLoading] = useState<boolean>(false)

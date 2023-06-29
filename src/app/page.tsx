@@ -2,6 +2,8 @@ import { mainNewsMock } from '@/assets/mock/mainNews'
 // import { Billboard } from '../components/Ads/Billboard'
 import { MainNews } from '../components/MainNews'
 import NewsCard from '@/components/NewsCard'
+import { stripe } from '@/services/stripe'
+import { SubscribeButton } from '@/components/Buttons/SubscribeButton'
 // import { createClient } from '../../prismicio'
 
 // interface MainNewsType {
@@ -22,6 +24,20 @@ import NewsCard from '@/components/NewsCard'
 export const revalidate = 60 * 60 * 60 * 24 * 7 // revalidate this page every 1 week
 
 export default async function Home({ params }: any) {
+  const price = await stripe.prices.retrieve('price_1M9azvDXX8w4b1ObMu8EmOp2', {
+    expand: ['product'],
+  })
+  const product = {
+    priceId: price.id || null,
+    amount:
+      price.unit_amount !== null
+        ? new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(price.unit_amount / 100)
+        : null,
+  }
+
   // const client = createClient()
 
   // const newsData = await client.getAllByType('news')
@@ -57,6 +73,7 @@ export default async function Home({ params }: any) {
       </div> */}
       <MainNews mainNewsData={mainNewsData} />
       <section className="w-full h-full flex flex-col justify-center items-start gap-32 mt-32">
+        <SubscribeButton priceId={product.priceId} />
         {moreNewsData.map((newsData, index) => {
           return <NewsCard key={index} dataNewsCard={newsData} />
         })}

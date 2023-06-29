@@ -4,16 +4,14 @@ import { api } from '@/services/axios'
 import { GithubLogo, GoogleLogo } from '@phosphor-icons/react'
 import { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 
 interface AuthButtonProps {
   auth: string
+  isLogin?: boolean
 }
-export function AuthButton({ auth }: AuthButtonProps) {
-  const router = useRouter()
+export function AuthButton({ auth, isLogin = false }: AuthButtonProps) {
   const { data: session } = useSession()
-  console.log(session)
+
   async function postData() {
     try {
       await api.post('/users', {
@@ -29,20 +27,19 @@ export function AuthButton({ auth }: AuthButtonProps) {
       }
     }
   }
-  useEffect(() => {
-    if (session === undefined || session === null) {
-      // eslint-disable-next-line no-useless-return
-      return
-    } else {
-      postData()
-      // router.push('/')
+
+  async function SignInFunction() {
+    await signIn(auth)
+    if (!isLogin) {
+      await postData()
     }
-  }, [session, router])
+  }
+
   return (
     <button
       type="button"
       onClick={() => {
-        signIn(auth)
+        SignInFunction()
       }}
       className="w-full max-w-[350px] rounded-full py-8 px-16 bg-gray-600 flex justify-center items-center gap-16  text-xl transition border-2 border-gray-800
       hover:border-green-500"
