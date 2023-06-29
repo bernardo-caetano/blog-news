@@ -2,6 +2,7 @@
 
 import { api } from '@/services/axios'
 import { GithubLogo, GoogleLogo } from '@phosphor-icons/react'
+import { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -21,7 +22,11 @@ export function AuthButton({ auth }: AuthButtonProps) {
         imageUrl: session?.user?.image,
       })
     } catch (err) {
-      console.error(err)
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err.response.data.message)
+      } else {
+        console.error(err)
+      }
     }
   }
   useEffect(() => {

@@ -14,6 +14,17 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const data: dataPostResponse = await request.json()
   const { name, email, imageUrl } = data
-  const user = await prisma.user.create({ data: { email, name, imageUrl } })
-  return NextResponse.json(user)
+
+  const userExists = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  })
+
+  if (userExists) {
+    return NextResponse.json({ error: 'User already exists' }, { status: 400 })
+  } else {
+    const user = await prisma.user.create({ data: { email, name, imageUrl } })
+    return NextResponse.json(user)
+  }
 }
