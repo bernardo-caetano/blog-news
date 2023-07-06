@@ -1,12 +1,27 @@
 // import { createClient } from '@/../prismicio'
 import { newsMock } from '@/assets/mock/newsMock'
+import { ViewPost } from '@/controllers/ViewPost'
+import { prisma } from '@/services/prisma'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 export default async function News({ params }: any) {
+
   // const client = createClient()
   // const news = await client.getByUID('news', params.uid)
   // const data = news.data
   const news = newsMock
+  // const session = useSession()
+
+
+
+
+  // const subscriptionStatus = await prisma.user.findUnique({
+  //   where: {
+  //     email: session.user.email
+  //   }
+  // })
 
   return (
     <main className="flex items-center justify-center flex-col max-w-[1230px] mt-32">

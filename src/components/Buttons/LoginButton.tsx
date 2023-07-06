@@ -1,11 +1,16 @@
 'use client'
+import { ViewPost } from '@/controllers/ViewPost'
 import { ArrowRight, Note } from '@phosphor-icons/react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 export function LoginButton() {
   const { data: session } = useSession()
+  useEffect(() => {
+    ViewPost(session)
+  }, [session])
   return (
     <div className="flex items-center justify-center gap-12">
       {session?.expires !== undefined ? (
