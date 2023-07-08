@@ -1,16 +1,21 @@
 'use client'
-import { ViewPost } from '@/controllers/ViewPost'
+import { PaymentActiveContext } from '@/context/PaymentActiveContext'
 import { ArrowRight, Note } from '@phosphor-icons/react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useContext } from 'react'
 
-export function LoginButton() {
+interface LoginButtonProps {
+  payment?: boolean | null
+}
+
+export function LoginButton({ payment }: LoginButtonProps) {
   const { data: session } = useSession()
-  useEffect(() => {
-    ViewPost(session)
-  }, [session])
+  const { isPaymentActive } = useContext(PaymentActiveContext)
+  payment = isPaymentActive
+
+
   return (
     <div className="flex items-center justify-center gap-12">
       {session?.expires !== undefined ? (

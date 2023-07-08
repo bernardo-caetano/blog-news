@@ -7,9 +7,8 @@ interface dataPostResponse {
   imageUrl: string
 }
 
-export async function GET(request: Request) {
-  const data = request.json()
-  return NextResponse.json(data)
+export async function GET() {
+  return NextResponse.json({ message: 'hello', status: 200 })
 }
 
 export async function POST(request: Request) {

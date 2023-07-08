@@ -1,20 +1,29 @@
+/* eslint-disable prefer-const */
 // import { createClient } from '@/../prismicio'
 import { newsMock } from '@/assets/mock/newsMock'
+import { Header } from '@/components/Header'
+import { PaymentActiveContext } from '@/context/PaymentActiveContext'
+import { PaymentActiveController } from '@/controllers/PaymentActiveController'
 import { ViewPost } from '@/controllers/ViewPost'
 import { prisma } from '@/services/prisma'
+import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { authOptions } from '../api/auth/[...nextauth]/route'
 
 export default async function News({ params }: any) {
+  const session = await getServerSession()
 
   // const client = createClient()
   // const news = await client.getByUID('news', params.uid)
   // const data = news.data
   const news = newsMock
   // const session = useSession()
+  // const { isPaymentActive } = useContext(PaymentActiveContext)
+  // console.log(isPaymentActive)
 
-
+  let payment = false
 
 
   // const subscriptionStatus = await prisma.user.findUnique({
@@ -22,6 +31,7 @@ export default async function News({ params }: any) {
   //     email: session.user.email
   //   }
   // })
+  console.log(session)
 
   return (
     <main className="flex items-center justify-center flex-col max-w-[1230px] mt-32">
@@ -42,5 +52,6 @@ export default async function News({ params }: any) {
         <p>{news.text}</p>
       </section>
     </main>
+
   )
 }
