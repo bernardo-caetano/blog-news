@@ -1,5 +1,5 @@
 import { prisma } from '@/services/prisma'
-import { NextResponse } from 'next/server'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 interface dataPostResponse {
   name: string
@@ -7,24 +7,29 @@ interface dataPostResponse {
   imageUrl: string
 }
 
-export async function GET() {
-  return NextResponse.json({ message: 'hello', status: 200 })
-}
+// export async function GET() {
+//   return NextResponse.json({ message: 'hello', status: 200 })
+// }
 
-export async function POST(request: Request) {
-  const data: dataPostResponse = await request.json()
-  const { name, email, imageUrl } = data
-
-  const userExists = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  })
-
-  if (userExists) {
-    return NextResponse.json({ error: 'User already exists' }, { status: 400 })
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).end()
   } else {
-    const user = await prisma.user.create({ data: { email, name, imageUrl } })
-    return NextResponse.json(user)
+    const data: dataPostResponse = req.body
+    const { name, email, imageUrl } = data
+
+    const userExists = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    if (userExists) {
+      return ''
+    } else {
+      const user = await prisma.user.create({ data: { email, name, imageUrl } })
+      return res.status(201).json(user)
+    }
   }
+
 }

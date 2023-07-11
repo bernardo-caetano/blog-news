@@ -50,7 +50,7 @@ export default function Home({ newsData, product }: any) {
 
 
 
-  useEffect(() => { console.log(newsData, product) }, [])
+  // useEffect(() => { console.log(newsData, product) }, [])
   const newsList = mainNewsMock
 
   const mainNewsData = newsList.slice(0, 3)

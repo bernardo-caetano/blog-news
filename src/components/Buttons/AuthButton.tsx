@@ -4,6 +4,7 @@ import { api } from '@/services/axios'
 import { GithubLogo, GoogleLogo } from '@phosphor-icons/react'
 import { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface AuthButtonProps {
   auth: string
@@ -11,35 +12,39 @@ interface AuthButtonProps {
 }
 export function AuthButton({ auth, isLogin = false }: AuthButtonProps) {
   const { data: session } = useSession()
+  const [hasSession, setHasSession] = useState(false)
 
-  async function postData() {
+  const postData = useCallback(async () => {
     try {
       await api.post('/users', {
         name: session?.user?.name,
         email: session?.user?.email,
         imageUrl: session?.user?.image,
       })
-    } catch (err) {
-      if (err instanceof AxiosError && err?.response?.data?.message) {
-        alert(err.response.data.message)
-      } else {
-        console.error(err)
-      }
-    }
-  }
+    } catch (err) { }
+  }, [hasSession])
 
-  async function SignInFunction() {
-    await signIn(auth)
-    if (!isLogin) {
-      await postData()
+  useEffect(() => {
+    if (!isLogin && hasSession === true) {
+      postData()
     }
-  }
+  }, [hasSession, isLogin, postData])
+
+  useEffect(() => {
+    if (hasSession === false && session !== undefined && session !== null) {
+      setHasSession(true)
+    } else if (hasSession === true && (session === undefined || session === null)) {
+      setHasSession(false)
+    }
+  }, [session, hasSession])
+
+
 
   return (
     <button
       type="button"
       onClick={() => {
-        SignInFunction()
+        signIn(auth)
       }}
       className="w-full max-w-[350px] rounded-full py-8 px-16 bg-gray-600 flex justify-center items-center gap-16  text-xl transition border-2 border-gray-800
       hover:border-green-500"
