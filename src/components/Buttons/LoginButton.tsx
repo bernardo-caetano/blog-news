@@ -50,15 +50,7 @@ export function LoginButton({ payment }: LoginButtonProps) {
             <p>Login</p>
             <ArrowRight size={24} />
           </Link>
-          <Link
-            href="/cadastro"
-            type="button"
-            className="p-12 bg-gray-600 border-2 border-gray-800 rounded-lg flex gap-8 items-center justify-center transition
-              hover:border-green-500"
-          >
-            <p>Cadastrar</p>
-            <Note size={24} />
-          </Link>
+
         </>
       )}
     </div>

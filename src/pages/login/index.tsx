@@ -6,8 +6,8 @@ export default function Login() {
       <div className="w-[400px] h-[280px] bg-gray-800 rounded-xl flex items-center justify-center gap-16 flex-col">
         <p className="text-xl font-bold m-16">Login</p>
         <div className="w-full h-full flex items-center justify-center gap-32 flex-col">
-          <AuthButton auth="github" isLogin />
-          <AuthButton auth="google" isLogin />
+          <AuthButton auth="github" />
+          <AuthButton auth="google" />
         </div>
       </div>
     </main>

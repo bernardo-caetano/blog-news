@@ -7,10 +7,6 @@ interface dataPostResponse {
   imageUrl: string
 }
 
-// export async function GET() {
-//   return NextResponse.json({ message: 'hello', status: 200 })
-// }
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).end()

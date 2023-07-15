@@ -1,8 +1,12 @@
 {
   "extends": [
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "@rocketseat/eslint-config/react"
   ],
   "rules": {
     "prettier/prettier": "off"
-  }
+  },
+  "plugins": [
+    "react-hooks/recommended"
+  ]
 }

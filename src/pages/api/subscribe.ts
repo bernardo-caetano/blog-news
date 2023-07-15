@@ -1,34 +1,36 @@
 import { prisma } from "@/services/prisma";
 import { stripe } from "@/services/stripe";
-import { NextResponse } from "next/server";
-export async function POST(request: Request) {
+import { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 
-  const session = await request.json()
-  if (session !== null) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).end()
+  } else {
+    const session = await getSession({ req })
+
 
     const user = await prisma.user.findUnique({
       where: {
-        email: session.email,
+        email: session?.user?.email!,
       }
     })
 
     let customerId = user?.stripe_customer_id
 
     if (!customerId) {
-
       const stripeCustomer = await stripe.customers.create({
-        email: session.email,
+        email: session?.user?.email!,
       })
 
       await prisma.user.update({
         where: {
-          email: session.email,
+          email: session?.user?.email!,
         },
         data: {
           stripe_customer_id: stripeCustomer.id
         }
       })
-
       customerId = stripeCustomer.id
     }
 
@@ -44,9 +46,6 @@ export async function POST(request: Request) {
       success_url: process.env.STRIPE_SUCCESS_URL!,
       cancel_url: process.env.STRIPE_CANCEL_URL,
     })
-    return NextResponse.json({ sessionId: stripeCheckoutSession.id })
-  } else {
-    return NextResponse.json({ error: 'O usuário precisa estar logado.' }, { status: 400 })
+    return res.status(200).json({ sessionId: stripeCheckoutSession.id })
   }
-
 }

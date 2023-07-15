@@ -4,15 +4,18 @@ import { api } from '@/services/axios'
 import { GithubLogo, GoogleLogo } from '@phosphor-icons/react'
 import { AxiosError } from 'axios'
 import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 
 interface AuthButtonProps {
   auth: string
   isLogin?: boolean
 }
-export function AuthButton({ auth, isLogin = false }: AuthButtonProps) {
+export function AuthButton({ auth }: AuthButtonProps) {
   const { data: session } = useSession()
+  const router = useRouter()
   const [hasSession, setHasSession] = useState(false)
+
 
   const postData = useCallback(async () => {
     try {
@@ -25,14 +28,16 @@ export function AuthButton({ auth, isLogin = false }: AuthButtonProps) {
   }, [hasSession])
 
   useEffect(() => {
-    if (!isLogin && hasSession === true) {
+    if (hasSession === true) {
       postData()
     }
-  }, [hasSession, isLogin, postData])
+  }, [hasSession, postData])
 
   useEffect(() => {
     if (hasSession === false && session !== undefined && session !== null) {
       setHasSession(true)
+
+      router.push('/')
     } else if (hasSession === true && (session === undefined || session === null)) {
       setHasSession(false)
     }

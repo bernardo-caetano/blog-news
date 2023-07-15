@@ -7,19 +7,43 @@ import { stripe } from '@/services/stripe'
 import { MainNews } from '@/components/MainNews'
 import { SubscribeButton } from '@/components/Buttons/SubscribeButton'
 import NewsCard from '@/components/NewsCard'
+import { getSession } from 'next-auth/react'
+
+export default function Home({ newsData, product }: any) {
+
+  // async function getNews() {
+  //   const client = createClient()
+
+  //   const newsData = await client.getAllByType('news')
+  //   console.log(newsData)
+
+  //   return newsData
+  // }
+
+  // useEffect(() => { console.log(newsData, product) }, [])
+  const newsList = mainNewsMock
+
+  const mainNewsData = newsList.slice(0, 3)
+
+  const moreNewsData = newsList.slice(3, newsList.length)
+  return (
+    <div className="flex items-center justify-center flex-col max-w-[1230px] mt-32 pt-32">
+      <MainNews mainNewsData={mainNewsData} />
+      <section className="w-full h-full flex flex-col justify-center items-start gap-32 mt-32">
+        <SubscribeButton priceId={product.priceId} />
+        {moreNewsData.map((newsData, index) => {
+          return <NewsCard key={index} dataNewsCard={newsData} />
+        })}
+      </section>
+    </div>
+  )
+}
 
 
-
-
-export const getServerSideProps: GetServerSideProps<{
-
-}> = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
   const client = createClient()
-
   const newsData = await client.getAllByType('news')
-
-
-
   const price = await stripe.prices.retrieve('price_1M9azvDXX8w4b1ObMu8EmOp2', {
     expand: ['product'],
   })
@@ -34,43 +58,5 @@ export const getServerSideProps: GetServerSideProps<{
         : null,
   }
 
-
-  return { props: { newsData, product } }
-}
-
-export default function Home({ newsData, product }: any) {
-  // async function getNews() {
-  //   const client = createClient()
-
-  //   const newsData = await client.getAllByType('news')
-  //   console.log(newsData)
-
-  //   return newsData
-  // }
-
-
-
-  // useEffect(() => { console.log(newsData, product) }, [])
-  const newsList = mainNewsMock
-
-  const mainNewsData = newsList.slice(0, 3)
-
-  const moreNewsData = newsList.slice(3, newsList.length)
-  return (
-    <div className="flex items-center justify-center flex-col max-w-[1230px] mt-32 pt-32">
-      {/* <div
-        className="flex w-full h-full items-center justify-center my-32
-      md-desk:w-730"
-      >
-        <Billboard />
-      </div> */}
-      <MainNews mainNewsData={mainNewsData} />
-      <section className="w-full h-full flex flex-col justify-center items-start gap-32 mt-32">
-        <SubscribeButton priceId={product.priceId} />
-        {moreNewsData.map((newsData, index) => {
-          return <NewsCard key={index} dataNewsCard={newsData} />
-        })}
-      </section>
-    </div>
-  )
+  return { props: { newsData, product, session } }
 }

@@ -7,12 +7,15 @@ import { PaymentActiveController } from '@/controllers/PaymentActiveController'
 import { ViewPost } from '@/controllers/ViewPost'
 import { prisma } from '@/services/prisma'
 import { getServerSession } from 'next-auth'
-import { useSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useContext, useEffect } from 'react'
 import { authOptions } from '../api/auth/[...nextauth]/route'
+import { GetServerSideProps } from 'next'
+import { createClient } from '@prismicio/client'
 
-export default function News() {
+export default function News({ userSubscriptionActive }: any) {
+  console.log(userSubscriptionActive)
   // const session = await getServerSession()
 
   // const client = createClient()
@@ -54,4 +57,22 @@ export default function News() {
     </div>
 
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  const userSubscriptionSituation = session ? await prisma.user.findUnique({
+    where: {
+      email: session.user?.email!,
+    },
+    select: {
+      subscription_active: true
+    }
+  }) : { subscription_active: false }
+
+  const userSubscriptionActive = userSubscriptionSituation !== null && userSubscriptionSituation?.subscription_active
+
+
+  return { props: { session, userSubscriptionActive } }
 }

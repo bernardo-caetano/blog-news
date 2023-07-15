@@ -15,12 +15,9 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
   async function handleSubscribe() {
     if (!session) {
       router.push('/login')
-
     } else {
       try {
-        const response = await api.post('/subscribe', {
-          email: session ? session?.user?.email : null,
-        })
+        const response = await api.post('/subscribe')
 
         const { sessionId } = response.data
 
