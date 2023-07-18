@@ -13,9 +13,16 @@ import { useContext, useEffect } from 'react'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { GetServerSideProps } from 'next'
 import { createClient } from '@prismicio/client'
+import { SubscriptionStatusContext } from '@/context/SubscriptionStatusContext'
 
 export default function News({ userSubscriptionActive }: any) {
   console.log(userSubscriptionActive)
+  const { handleSubscriptionStatus } = useContext(SubscriptionStatusContext)
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    handleSubscriptionStatus(userSubscriptionActive)
+  }, [session])
   // const session = await getServerSession()
 
   // const client = createClient()
@@ -73,6 +80,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const userSubscriptionActive = userSubscriptionSituation !== null && userSubscriptionSituation?.subscription_active
 
-
+  if (!userSubscriptionActive) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
   return { props: { session, userSubscriptionActive } }
 }

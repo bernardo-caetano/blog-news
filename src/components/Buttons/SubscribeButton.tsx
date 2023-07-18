@@ -1,4 +1,5 @@
 
+import { SubscriptionStatusContext } from "@/context/SubscriptionStatusContext";
 import { api } from "@/services/axios";
 import { getStripeJs } from "@/services/stripe-js";
 import { useSession } from "next-auth/react";
@@ -16,6 +17,7 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
     if (!session) {
       router.push('/login')
     } else {
+
       try {
         const response = await api.post('/subscribe')
 
