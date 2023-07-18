@@ -58,6 +58,8 @@ export default function NewsPreview({ news }: any) {
   )
 }
 
+//adicionar getStaticPaths
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // const client = createClient()
   // const news = await client.getByUID('news', params.uid)
