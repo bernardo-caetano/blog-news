@@ -1,47 +1,19 @@
 /* eslint-disable prefer-const */
-// import { createClient } from '@/../prismicio'
 import { newsMock } from '@/assets/mock/newsMock'
-import { Header } from '@/components/Header'
-import { PaymentActiveContext } from '@/context/PaymentActiveContext'
-import { PaymentActiveController } from '@/controllers/PaymentActiveController'
-import { ViewPost } from '@/controllers/ViewPost'
 import { prisma } from '@/services/prisma'
-import { getServerSession } from 'next-auth'
 import { getSession, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useContext, useEffect } from 'react'
-import { authOptions } from '../api/auth/[...nextauth]/route'
 import { GetServerSideProps } from 'next'
-import { createClient } from '@prismicio/client'
 import { SubscriptionStatusContext } from '@/context/SubscriptionStatusContext'
 
-export default function News({ userSubscriptionActive }: any) {
-  console.log(userSubscriptionActive)
+export default function News({ userSubscriptionActive, news }: any) {
   const { handleSubscriptionStatus } = useContext(SubscriptionStatusContext)
   const { data: session } = useSession()
 
   useEffect(() => {
     handleSubscriptionStatus(userSubscriptionActive)
   }, [session])
-  // const session = await getServerSession()
-
-  // const client = createClient()
-  // const news = await client.getByUID('news', params.uid)
-  // const data = news.data
-  const news = newsMock
-  // const session = useSession()
-  // const { isPaymentActive } = useContext(PaymentActiveContext)
-  // console.log(isPaymentActive)
-
-  // let payment = false
-
-
-  // const subscriptionStatus = await prisma.user.findUnique({
-  //   where: {
-  //     email: session.user.email
-  //   }
-  // })
-  // console.log(session)
 
   return (
     <div className="flex items-center justify-center flex-col max-w-[1230px] mt-32">
@@ -69,6 +41,11 @@ export default function News({ userSubscriptionActive }: any) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
+  // const client = createClient()
+  // const news = await client.getByUID('news', String(context?.params?.uid))
+
+  const news = newsMock
+
   const userSubscriptionSituation = session ? await prisma.user.findUnique({
     where: {
       email: session.user?.email!,
@@ -88,5 +65,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
   }
-  return { props: { session, userSubscriptionActive } }
+  return { props: { session, userSubscriptionActive, news } }
 }

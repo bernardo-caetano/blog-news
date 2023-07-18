@@ -10,21 +10,8 @@ import NewsCard from '@/components/NewsCard'
 import { getSession } from 'next-auth/react'
 
 export default function Home({ newsData, product }: any) {
-
-  // async function getNews() {
-  //   const client = createClient()
-
-  //   const newsData = await client.getAllByType('news')
-  //   console.log(newsData)
-
-  //   return newsData
-  // }
-
-  // useEffect(() => { console.log(newsData, product) }, [])
   const newsList = mainNewsMock
-
   const mainNewsData = newsList.slice(0, 3)
-
   const moreNewsData = newsList.slice(3, newsList.length)
   return (
     <div className="flex items-center justify-center flex-col max-w-[1230px] mt-32 pt-32">
