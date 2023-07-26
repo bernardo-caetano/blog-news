@@ -25,7 +25,7 @@ export default function NewsCard({ dataNewsCard }: NewsCardProps) {
         className="w-full h-full flex items-center justify-center object-cover gap-16"
       >
         <Image
-          className="aspect-video object-cover"
+          className="aspect-video object-cover rounded-lg"
           src={dataNewsCard.img.src}
           alt={dataNewsCard.img.alt}
           width={340}
