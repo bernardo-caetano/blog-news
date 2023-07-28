@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface NewsCardProps {
+interface MoreNewsCardProps {
   dataNewsCard: {
     uid: string
     url: string
@@ -17,12 +17,12 @@ interface NewsCardProps {
     }
   }
 }
-export default function NewsCard({ dataNewsCard }: NewsCardProps) {
+export default function MoreNewsCard({ dataNewsCard }: MoreNewsCardProps) {
   return (
-    <div className="flex items-center justify-center object-cover gap-16 w-full h-full max-w-[340px]">
+    <div className="flex items-center justify-center object-cover gap-16 w-full h-full">
       <Link
         href={`${dataNewsCard.url}`}
-        className="w-full h-full flex flex-col items-center justify-center object-cover gap-16"
+        className="w-full h-full flex items-center justify-center object-cover gap-16"
       >
         <Image
           className="aspect-video object-cover rounded-lg"

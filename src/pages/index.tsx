@@ -6,10 +6,11 @@ import { mainNewsMock } from '@/assets/mock/mainNews'
 import { stripe } from '@/services/stripe'
 import { MainNews } from '@/components/MainNews'
 import { SubscribeButton } from '@/components/Buttons/SubscribeButton'
-import NewsCard from '@/components/NewsCard'
 import { getSession } from 'next-auth/react'
+import MoreNewsCard from '@/components/MoreNewsCard'
+import NewsCard from '@/components/NewsCard'
 
-interface MainNewsDataProps {
+interface NewsDataProps {
   uid: string
   url: string
   title: string
@@ -25,7 +26,7 @@ interface MainNewsDataProps {
 }
 
 export default function Home({ newsData, product }: any) {
-  const newsDataReducer = newsData.reduce((acc: MainNewsDataProps[], item: any) => {
+  const newsDataReducer = newsData.reduce((acc: NewsDataProps[], item: any) => {
     acc.push({
       uid: item.uid,
       url: item.url,
@@ -43,14 +44,25 @@ export default function Home({ newsData, product }: any) {
     return acc;
   }, [])
 
-  const mainNewsData = newsDataReducer.slice(0, 6)
+  const mainNewsData = newsDataReducer.slice(0, 3)
+  const subscriptionNewsData = newsDataReducer.slice(3, 6)
   const moreNewsData = newsDataReducer.slice(6, newsData.length)
   return (
     <div className="flex items-center justify-center flex-col max-w-[1230px] mt-32 pt-32">
       <MainNews mainNewsData={mainNewsData} />
       <section className="w-full h-full flex flex-col justify-center items-start gap-32 mt-32">
-        {moreNewsData.map((moreNews: MainNewsDataProps, index: number) => {
-          return <NewsCard key={index} dataNewsCard={moreNews} />
+        <label className='text-2xl'>Notícias para Assinantes</label>
+        <div className="w-full h-full flex justify-between items-start gap-32 mt-32">
+          {subscriptionNewsData.map((subscriptionNews: NewsDataProps, index: number) => {
+            return <NewsCard key={index} dataNewsCard={subscriptionNews} />
+          })}
+        </div>
+      </section>
+
+      <section className="w-full h-full flex flex-col justify-center items-start gap-32 mt-32">
+        <label className='text-2xl'>Mais Notícias</label>
+        {moreNewsData.map((moreNews: NewsDataProps, index: number) => {
+          return <MoreNewsCard key={index} dataNewsCard={moreNews} />
         })}
       </section>
     </div>

@@ -18,7 +18,7 @@ interface MainNewsDataProps {
 }
 export function MainNews({ mainNewsData }: MainNewsDataProps) {
   return (
-    <section className="flex justify-center flex-col items-center gap-16 w-full h-full max-h-[1320px] min-h-[1320px]">
+    <section className="flex justify-center flex-col items-center gap-16 w-full h-full max-h-[660px] min-h-[660px]">
       <div className="flex justify-center items-center gap-16 w-full h-full max-h-[660px] min-h-[660px]">
         <Link
           href={`${mainNewsData[0].url}`}
@@ -62,50 +62,7 @@ export function MainNews({ mainNewsData }: MainNewsDataProps) {
           </Link>
         </div>
       </div>
-      <div className="flex justify-center items-center gap-16 w-full h-full max-h-[660px] min-h-[660px]">
-        <div className="flex flex-col justify-center items-center w-full h-full gap-16">
-          <Link href={`${mainNewsData[3].url}`} className="w-full h-full">
-            <div
-              style={{
-                background: `linear-gradient(180deg, rgba(24, 24, 24, 0) 0%, #181818 100%) , url(${mainNewsData[3]?.img.src})`,
-                backgroundPosition: 'center top',
-                backgroundSize: 'cover',
-              }}
-              className="flex bg-gray-200 w-full h-[322px] justify-start items-end text-4xl font-bold pb-48 px-32"
-            >
-              {mainNewsData[3]?.title}
-            </div>
-          </Link>
-          <Link href={`${mainNewsData[4].url}`} className="w-full h-full">
-            <div
-              style={{
-                background: `linear-gradient(180deg, rgba(24, 24, 24, 0) 0%, #181818 100%) , url(${mainNewsData[4]?.img.src})`,
-                backgroundPosition: 'center top',
-                backgroundSize: 'cover',
-              }}
-              className=" flex bg-gray-200 w-full h-[322px] justify-start items-end text-4xl font-bold pb-48 px-32"
-            >
-              {mainNewsData[4]?.title}
-            </div>
-          </Link>
-        </div>
-        <Link
-          href={`${mainNewsData[5].url}`}
-          className="w-full h-full overflow-hidden"
-        >
-          <div
-            style={{
-              background: `linear-gradient(180deg, rgba(24, 24, 24, 0) 0%, #181818 100%) , url(${mainNewsData[5]?.img.src})`,
-              backgroundPosition: 'center top',
-              backgroundSize: 'cover',
-            }}
-            className="flex bg-gray-200 w-full  justify-start items-end min-w-[606px] h-[660px] text-4xl font-bold px-32 pb-104"
-          >
-            {mainNewsData[5]?.title}
-          </div>
-        </Link>
 
-      </div>
     </section>
 
   )
